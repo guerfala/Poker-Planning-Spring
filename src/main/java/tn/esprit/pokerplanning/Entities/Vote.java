@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Data
@@ -24,9 +26,19 @@ public class Vote {
 
     private int occurence;
 
-    private Timestamp voteTimeStamp;
+    private LocalDateTime voteTimestamp;
 
     private ConfidenceLevel confidenceLevel;
+
+    @PrePersist
+    protected void onCreate() {
+        voteTimestamp = LocalDateTime.now().withSecond(0).withNano(0); // Set current timestamp with seconds and nanoseconds truncated
+    }
+
+    public String getFormattedVoteTimestamp() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // Define the desired format
+        return voteTimestamp.format(formatter); // Format the timestamp
+    }
 
     @ManyToOne
     private User participant;
