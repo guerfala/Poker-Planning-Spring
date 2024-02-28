@@ -1,5 +1,6 @@
 package tn.esprit.pokerplaning.Entities.ProjectTeam;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Team {
     private int evaluation;
 
     @OneToMany(mappedBy = "team")
+    @JsonManagedReference
     private List<Project> projectsTeam;
 
     @OneToMany(mappedBy = "teamAffected")
