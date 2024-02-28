@@ -23,7 +23,7 @@ public class Team {
     private int evaluation;
 
     @OneToMany(mappedBy = "team")
-    @JsonManagedReference
+  
     private List<Project> projectsTeam;
 
     @OneToMany(mappedBy = "teamAffected")
