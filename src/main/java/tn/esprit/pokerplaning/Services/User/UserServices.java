@@ -48,6 +48,8 @@ public class UserServices {
          user.setImage(userDetails.getImage());
          //user.setPassword(userDetails.getPassword());
          user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+         user.setSkillRate(userDetails.getSkillRate());
+         user.setRole(userDetails.getRole());
 
          user.setGender(userDetails.getGender());
 
