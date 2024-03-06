@@ -23,14 +23,20 @@ public class Vote {
 
     private int cardValue;
 
-    @ManyToOne
-    private Task task;
-
     private int occurence;
 
     private LocalDateTime voteTimestamp;
 
     private ConfidenceLevel confidenceLevel;
+
+    private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "task_id") // Adjust the column name if necessary
+    private Task task;
+    public void setUserId(Long UserId) {
+        this.userId = UserId;
+    }
 
     @PrePersist
     protected void onCreate() {
@@ -47,4 +53,5 @@ public class Vote {
 
     @ManyToOne
     private Room roomVote;
+
 }
