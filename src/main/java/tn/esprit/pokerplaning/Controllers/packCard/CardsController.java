@@ -12,8 +12,13 @@ import java.util.List;
 public class CardsController {
     @Autowired
     private CardsService service;
+    @PostMapping("/addCards/{id}")
+    public Cards addCards (@RequestBody Cards cards, @PathVariable Long id){
+
+        return service.saveCards(cards,id);
+    }
     @PostMapping("/addCards")
-    public Cards addCards (@RequestBody Cards cards){
+    public Cards addCardss (@RequestBody Cards cards){
         return service.saveCards(cards);
     }
     @PostMapping("/addsCards")
@@ -24,14 +29,21 @@ public class CardsController {
     public List<Cards>findAll(){
         return service.getCards();
     }
+
+    @GetMapping("/cardsofpack/{id}")
+    public List<Cards>findcardofpack(@PathVariable Long id){
+        return   service.getCardsOfPack(id);
+    }
     @GetMapping("/cards/{id}")
     public Cards findCardsById(@PathVariable Long id){
         return service.getCardsById(id);
     }
 
-    @PutMapping("/updateCard")
-    public Cards updateCard (@RequestBody Cards cards)
+    @PutMapping("/updateCard/{id}")
+    public Cards updateCard (@RequestBody Cards cards,@PathVariable Long id)
     {
+        cards.setCardId(id);
+
         return service.updateCards(cards);
     }
 

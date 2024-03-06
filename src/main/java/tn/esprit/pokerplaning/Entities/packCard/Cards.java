@@ -1,12 +1,12 @@
 package tn.esprit.pokerplaning.Entities.packCard;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cards {
@@ -17,6 +17,9 @@ public class Cards {
 
     private int value;
 
+    private String image;
+
+ 
     @ManyToOne
     private Pack pack;
 }

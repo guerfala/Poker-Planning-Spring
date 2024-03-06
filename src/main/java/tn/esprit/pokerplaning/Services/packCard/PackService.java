@@ -39,11 +39,15 @@ public class PackService {
         existingPack.setPackName(pack.getPackName());
         existingPack.setPackDescription(pack.getPackDescription());
         existingPack.setNbCards(pack.getNbCards());
+        existingPack.setImage(pack.getImage());
+
         existingPack.setCardsList(pack.getCardsList());
         existingPack.setProjectList(pack.getProjectList());
 
 
         return repository.save(existingPack);
     }
+
+
 
 }

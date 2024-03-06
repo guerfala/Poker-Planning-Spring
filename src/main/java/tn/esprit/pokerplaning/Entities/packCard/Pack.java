@@ -1,5 +1,6 @@
 package tn.esprit.pokerplaning.Entities.packCard;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,10 @@ public class Pack {
 
     private String packDescription;
 
-    private int nbCards;
+    private String image;
 
+    private int nbCards;
+    @JsonIgnore
     @OneToMany(mappedBy = "pack")
     private List<Cards> cardsList;
 
