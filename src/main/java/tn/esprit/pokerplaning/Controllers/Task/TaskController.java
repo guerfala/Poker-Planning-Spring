@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/vote/tasks")
+@RequestMapping("/tasks")
 @CrossOrigin("http://localhost:4200")
 public class TaskController {
 

@@ -1,5 +1,6 @@
 package tn.esprit.pokerplaning.Entities.ProjectTeam;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<Sprint> sprints;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Team team;
 }

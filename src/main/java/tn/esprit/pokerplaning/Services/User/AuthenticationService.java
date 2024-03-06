@@ -25,13 +25,15 @@ private  final AuthenticationManager authenticationManager;
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.Developpeur)
+                .role(request.getRole())
                 .gender(request.getGender())
+                .skillRate(request.getSkillRate())
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return  AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(user)
                 .build();
 
 
@@ -47,7 +49,7 @@ private  final AuthenticationManager authenticationManager;
 
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        return  AuthenticationResponse.builder().token(jwtToken).build();
+        return  AuthenticationResponse.builder().token(jwtToken).user(user).build();
 
     }
 

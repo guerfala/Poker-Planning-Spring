@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pokerplaning.Entities.Task.Task;
 import tn.esprit.pokerplaning.Entities.Vote.Vote;
-import tn.esprit.pokerplaning.Services.Vote.VoteServicesImp;
 import tn.esprit.pokerplaning.Services.Task.TaskServiceImpl;
+import tn.esprit.pokerplaning.Services.Vote.VoteServicesImp;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
 package tn.esprit.pokerplaning.Services.Vote;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import tn.esprit.pokerplaning.Entities.Vote.Vote;
 import tn.esprit.pokerplaning.Entities.Task.Task;
+import tn.esprit.pokerplaning.Entities.Vote.Vote;
 import tn.esprit.pokerplaning.Repositories.Vote.VoteRepository;
-
 
 import java.util.List;
 

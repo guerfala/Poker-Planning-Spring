@@ -10,7 +10,7 @@ import tn.esprit.pokerplaning.Entities.Room.Room;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Repport {
+public class Report {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
