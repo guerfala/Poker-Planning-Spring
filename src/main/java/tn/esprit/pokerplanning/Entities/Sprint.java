@@ -1,9 +1,12 @@
 package tn.esprit.pokerplanning.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
@@ -24,9 +27,11 @@ public class Sprint {
 
     private Date endDate;
 
-    @OneToMany(mappedBy = "sprintTask")
+    @OneToMany(mappedBy = "sprintTask", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("sprintTask")
     private List<Task> tasksSprint;
 
     @ManyToOne
+    @JsonIgnore
     private Project project;
 }

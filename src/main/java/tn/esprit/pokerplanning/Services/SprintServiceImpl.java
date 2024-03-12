@@ -1,5 +1,6 @@
 package tn.esprit.pokerplanning.Services;
 
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -36,14 +37,12 @@ public class SprintServiceImpl implements ISprintService {
       return sprintRepository.save(c);
    }
 
-   public List <Sprint> getAllSprint() {
-       List<Sprint> listT = sprintRepository.findAll();
-       for (Sprint t: listT) {
-          log.info("sprint :" + t);
-       }
-       return listT;
-   }
 
+   public List<Sprint> getAllSprint()
+   {
+      List<Sprint> sprints = sprintRepository.findAll();
+      return sprints;
+   }
 
 
    public Sprint updateSprint(Long id, Sprint sprintDetails) {
@@ -59,7 +58,7 @@ public class SprintServiceImpl implements ISprintService {
    }
 
 
-   public void assignTaskToSprint(Long idTask, Long sprintId) {
+   public void affectersprinttotask(Long idTask, Long sprintId) {
       Task task = taskRepository.findById(idTask).get();
       Sprint sprint = sprintRepository.findById(sprintId).get();
       task.setSprintTask(sprint);
@@ -69,4 +68,3 @@ public class SprintServiceImpl implements ISprintService {
 }
 
 
-//////////// neksa l'affectation mtaa sprint

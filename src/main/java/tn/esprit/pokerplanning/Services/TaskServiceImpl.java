@@ -1,5 +1,6 @@
 package tn.esprit.pokerplanning.Services;
 
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class TaskServiceImpl implements ITaskService {
 
    TaskRepository taskRepository;
@@ -29,12 +31,11 @@ public class TaskServiceImpl implements ITaskService {
       return taskRepository.findById(idTask).get();
    }
 
-   public List <Task> getAllTask() {
-       List<Task> listT = taskRepository.findAll();
-       for (Task t: listT) {
-          log.info("task :" + t);
-       }
-       return listT;
+
+   public List<Task> getAllTask()
+   {
+      List<Task> tasks = taskRepository.findAll();
+      return tasks;
    }
 
 
@@ -53,7 +54,9 @@ public class TaskServiceImpl implements ITaskService {
    public void deleteTask(Long taskId) {
       taskRepository.deleteById(taskId);
    }
+
+
+
 }
 
 
-//////////// neksa l'affectation mtaa sprint

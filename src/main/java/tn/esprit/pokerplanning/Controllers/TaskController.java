@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/tasks")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("**")
 public class TaskController {
 
     ITaskService taskService;
@@ -22,9 +22,8 @@ public class TaskController {
 
 
     @GetMapping("/getAllTasks")
-    public ResponseEntity<List<Task>> getAllTasks() {
-        List<Task> listTasks = taskService.getAllTask();
-        return ResponseEntity.ok(listTasks);
+    public List<Task> getAllTask(){
+        return taskService.getAllTask();
     }
 
 
@@ -36,16 +35,19 @@ public class TaskController {
 
 
 
-    @PutMapping("/updateTask/{taskId}")
-    public Task updateTask(@PathVariable("taskId") Long taskId, @RequestBody Task taskDetails) {
-        return taskService.updateTask(taskId, taskDetails);
+    @PutMapping("/updates/{taskId}")
+    public ResponseEntity<Task> updateTask(@PathVariable("taskId") Long taskId, @RequestBody Task taskDetails) {
+        Task updatedTask = taskService.updateTask(taskId, taskDetails);
+        return ResponseEntity.ok(updatedTask);
     }
 
 
-    @DeleteMapping("/deleteTask/{taskId}")
+    @DeleteMapping("/{taskId}")
     public ResponseEntity<?> deleteTask(@PathVariable("taskId") Long taskId) {
         taskService.deleteTask(taskId);
         return ResponseEntity.ok().build();
     }
+
+
 
 }

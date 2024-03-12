@@ -16,7 +16,7 @@ public interface ISprintService {
         void deleteSprint(Long sprintId);
 
 
-        public void assignTaskToSprint(Long idTask, Long sprintId);
+        public void affectersprinttotask(Long idTask, Long sprintId);
 
 
 

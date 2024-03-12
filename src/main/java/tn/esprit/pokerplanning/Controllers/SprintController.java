@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pokerplanning.Entities.Sprint;
+import tn.esprit.pokerplanning.Entities.Task;
 import tn.esprit.pokerplanning.Services.ISprintService;
 
 import java.util.List;
@@ -11,28 +12,30 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/sprints")
+@CrossOrigin("**")
 public class SprintController {
 
     ISprintService sprintService;
 
 
-    @PutMapping("/affecter-sprint-to-task/{taskId}/{sprintId}")
-    public void affecgterProjetAProjetDetail(@PathVariable("taskId") Long idTask,
+    @PutMapping("/affectersprinttotask/{taskId}/{sprintId}")
+    public void affectersprinttotask(@PathVariable("taskId") Long idTask,
                                              @PathVariable("sprintId") Long sprintId) {
-        sprintService.assignTaskToSprint(idTask, sprintId);
+        sprintService.affectersprinttotask(idTask, sprintId);
     }
+
+
     @PostMapping("/add-sprint")
     public Sprint addSprint(@RequestBody Sprint c) {
         Sprint sprint = sprintService.addSprint(c);
         return sprint;
     }
 
-    @GetMapping("/getAllSprints")
-    public ResponseEntity<List<Sprint>> getAllSprints() {
-        List<Sprint> listSprints = sprintService.getAllSprint();
-        return ResponseEntity.ok(listSprints);
-    }
 
+    @GetMapping("/getAllSprints")
+    public List<Sprint> getAllSprints(){
+        return sprintService.getAllSprint();
+    }
 
     @GetMapping("/{sprintId}")
     public Sprint getSprintById(@PathVariable("sprintId") Long sprintId) {
