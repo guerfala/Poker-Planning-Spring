@@ -45,13 +45,13 @@ public class SprintController {
 
 
 
-    @PutMapping("/{sprintId}")
+    @PutMapping("/update/{sprintId}")
     public Sprint updateSprint(@PathVariable("sprintId") Long sprintId, @RequestBody Sprint sprintDetails) {
         return sprintService.updateSprint(sprintId, sprintDetails);
     }
 
 
-    @DeleteMapping("/{sprintId}")
+    @DeleteMapping("/delete/{sprintId}")
     public ResponseEntity<?> deleteSprint(@PathVariable("sprintId") Long sprintId) {
         sprintService.deleteSprint(sprintId);
         return ResponseEntity.ok().build();

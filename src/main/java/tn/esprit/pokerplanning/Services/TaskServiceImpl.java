@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import tn.esprit.pokerplanning.Dto.TaskDto;
 import tn.esprit.pokerplanning.Entities.Task;
 import tn.esprit.pokerplanning.Repositories.TaskRepository;
 
@@ -40,7 +41,7 @@ public class TaskServiceImpl implements ITaskService {
 
 
 
-   public Task updateTask(Long id, Task taskDetails) {
+   public Task updateTask(Long id, TaskDto taskDetails) {
       Task task = getTaskById(id);
       task.setTaskName(taskDetails.getTaskName());
       task.setDescription(taskDetails.getDescription());

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.pokerplanning.Dto.TaskDto;
 import tn.esprit.pokerplanning.Entities.Task;
 import tn.esprit.pokerplanning.Services.ITaskService;
 
@@ -36,9 +37,9 @@ public class TaskController {
 
 
     @PutMapping("/updates/{taskId}")
-    public ResponseEntity<Task> updateTask(@PathVariable("taskId") Long taskId, @RequestBody Task taskDetails) {
+    public ResponseEntity<?> updateTask(@PathVariable("taskId") Long taskId, @RequestBody TaskDto taskDetails) {
         Task updatedTask = taskService.updateTask(taskId, taskDetails);
-        return ResponseEntity.ok(updatedTask);
+        return ResponseEntity.ok(true);
     }
 
 
