@@ -15,6 +15,8 @@ import tn.esprit.pokerplaning.Repositories.User.UserRepository;
 import tn.esprit.pokerplaning.Services.Task.TaskServiceImpl;
 
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -98,7 +100,13 @@ public class PokerPlanningServices {
 
     public List<Task> ShowVotedTasks(){
         List<Task> tasks = this.taskRepo.findAllByComplexityNotZero();
-        return tasks;
+        List<Task> taskList = new ArrayList<>();
+        for (int i=0; i<tasks.size(); i++)
+        {
+            if (tasks.get(i).getUser() == null)
+                taskList.add(tasks.get(i));
+        }
+        return taskList;
     }
 
     @Transactional
@@ -136,6 +144,20 @@ public class PokerPlanningServices {
         Task t = this.taskRepo.findById(idTask).get();
         t.setStatus(Status.DONE);
         this.taskRepo.save(t);
+
+        User user = t.getUser();
+
+        LocalDate today = LocalDate.now();
+        if (task.getEndDate().isAfter(today)) {
+            user.setSkillRate(user.getSkillRate() + 1);
+            this.userRepo.save(user);
+        } else {
+            if (user.getSkillRate() > 0)
+            {
+                user.setSkillRate(user.getSkillRate() - 1);
+                this.userRepo.save(user);
+            }
+        }
     }
 
     public List<Task> ShowDevTasks(Long userId)
