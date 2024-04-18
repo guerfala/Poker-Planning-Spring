@@ -17,6 +17,9 @@ public class Cards {
 
     private int value;
 
+    private String image;
+
+ 
     @ManyToOne
     private Pack pack;
 }

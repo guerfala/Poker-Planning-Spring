@@ -2,11 +2,17 @@ package tn.esprit.pokerplanning.Configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+@Configuration //mecanisme de securite
 
 public class CorsConfig  implements WebMvcConfigurer {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("classpath:/img/");
+    }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -14,4 +20,6 @@ public class CorsConfig  implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow these methods
                 .allowedHeaders("*"); // Allow all headers
     }
+
+
 }

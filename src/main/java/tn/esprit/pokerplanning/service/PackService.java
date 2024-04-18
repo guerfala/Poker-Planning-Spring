@@ -2,10 +2,12 @@ package tn.esprit.pokerplanning.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.pokerplanning.Entities.Cards;
 import tn.esprit.pokerplanning.Entities.Pack;
 import tn.esprit.pokerplanning.Entities.Pack;
 import tn.esprit.pokerplanning.repository.PackRepository;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -39,11 +41,20 @@ public class PackService {
         existingPack.setPackName(pack.getPackName());
         existingPack.setPackDescription(pack.getPackDescription());
         existingPack.setNbCards(pack.getNbCards());
+        existingPack.setImage(pack.getImage());
+
         existingPack.setCardsList(pack.getCardsList());
         existingPack.setProjectList(pack.getProjectList());
 
 
         return repository.save(existingPack);
+    }
+
+    public Pack getPackWithHighestRecommendedValue() {
+        List<Pack> packs = repository.findAll();
+        return packs.stream()
+                .max(Comparator.comparingInt(Pack::getRecommended))
+                .orElse(null);
     }
 
 }

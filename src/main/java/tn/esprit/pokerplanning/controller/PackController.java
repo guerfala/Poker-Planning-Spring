@@ -1,6 +1,7 @@
 package tn.esprit.pokerplanning.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pokerplanning.Entities.Cards;
@@ -42,6 +43,23 @@ public class PackController {
     {
         pack.setPackId(id);
         return service.updatePack(pack);
+    }
+    @GetMapping("/highest-recommended")
+    public ResponseEntity<Pack> getPackWithHighestRecommendedValue() {
+        Pack pack = service.getPackWithHighestRecommendedValue();
+        if (pack != null) {
+            return new ResponseEntity<>(pack, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @PutMapping("/updatePack2/{id}")
+    public Pack updatePack2 (@PathVariable Long id)
+    {
+        Pack p = new Pack();
+        p= service.getPackById(id);
+        p.setRecommended(p.getRecommended()+1);
+        return service.updatePack(p);
     }
 
     @DeleteMapping("/Pack/{id}")
