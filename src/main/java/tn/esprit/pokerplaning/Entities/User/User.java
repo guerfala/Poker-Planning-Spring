@@ -47,7 +47,7 @@ public class User implements UserDetails {
     private int skillRate;
 
     @OneToMany(mappedBy = "user")
-    private transient List<Task> tasks;
+    private List<Task> tasks;
 
     @ManyToMany
     private List<Room> rooms;

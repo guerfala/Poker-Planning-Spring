@@ -9,6 +9,7 @@ import tn.esprit.pokerplaning.Entities.Task.Task;
 import tn.esprit.pokerplaning.Entities.User.User;
 import tn.esprit.pokerplaning.Entities.Vote.Vote;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Room {
+public class Room implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +39,7 @@ public class Room {
     private List<User> participants;
 
     @OneToMany(mappedBy = "roomVote")
-    private transient List<Vote> votes;
+    private List<Vote> votes;
 
     @JsonIgnore
     @OneToMany(mappedBy = "roomTask", cascade = CascadeType.REMOVE)

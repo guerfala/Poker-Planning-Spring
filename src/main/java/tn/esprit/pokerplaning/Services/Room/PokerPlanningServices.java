@@ -16,6 +16,7 @@ import tn.esprit.pokerplaning.Repositories.User.UserRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PokerPlanningServices {
@@ -55,13 +56,9 @@ public class PokerPlanningServices {
         this.roomRepo.delete(room);
     }
 
-    public ResponseEntity<Room> getRoomById(@PathVariable Long id)
-    {
-        Room room = new Room();
-
-        if (roomRepo.findById(id).isPresent())
-            room = roomRepo.findById(id).get();
-
+    public ResponseEntity<Room> getRoomById(@PathVariable Long id) {
+        Room room = roomRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Room with ID " + id + " not found"));
         return ResponseEntity.ok(room);
     }
 
@@ -134,11 +131,17 @@ public class PokerPlanningServices {
         taskRepo.save(task);
     }
 
-    public void doingTaskDev(Long idTask)
-    {
-        Task t = this.taskRepo.findById(idTask).get();
-        t.setStatus(Status.INPROGRESS);
-        this.taskRepo.save(t);
+    public void doingTaskDev(Long idTask) {
+        Optional<Task> optionalTask = this.taskRepo.findById(idTask);
+
+        if (optionalTask.isPresent()) {
+            Task t = optionalTask.get();
+            t.setStatus(Status.INPROGRESS);
+            this.taskRepo.save(t);
+        } else {
+            // Handle the case where the task was not found, e.g., throw an exception or log an error
+            throw new IllegalArgumentException("Task with ID " + idTask + " not found.");
+        }
     }
 
     public void doneTaskDev(Task task, Long idTask)
