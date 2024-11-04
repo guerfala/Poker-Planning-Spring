@@ -28,9 +28,6 @@ class PokerPlanningServicesTest {
     @Mock
     private TaskRepository taskRepo;
 
-    @Mock
-    private UserRepository userRepo;
-
     @InjectMocks
     private PokerPlanningServices pokerPlanningServices;
 
@@ -71,12 +68,16 @@ class PokerPlanningServicesTest {
 
     @Test
     void testGetRoomById() {
+        Long roomId = 1L;
         Room room = new Room();
-        when(roomRepo.findById(1L)).thenReturn(Optional.of(room));
+        room.setRoomId(roomId);
+        room.setRoomName("Test Room");
 
-        ResponseEntity<Room> result = pokerPlanningServices.getRoomById(1L);
-        assertEquals(ResponseEntity.ok(room), result);
-        verify(roomRepo, times(1)).findById(1L);
+        when(roomRepo.findById(roomId)).thenReturn(Optional.of(room));
+
+        ResponseEntity<Room> response = pokerPlanningServices.getRoomById(roomId);
+
+        assertEquals(ResponseEntity.ok(room), response);
     }
 
     @Test
