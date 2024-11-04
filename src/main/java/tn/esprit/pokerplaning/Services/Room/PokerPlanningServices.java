@@ -2,9 +2,6 @@ package tn.esprit.pokerplaning.Services.Room;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +12,6 @@ import tn.esprit.pokerplaning.Entities.User.User;
 import tn.esprit.pokerplaning.Repositories.Room.RoomRepo;
 import tn.esprit.pokerplaning.Repositories.Task.TaskRepository;
 import tn.esprit.pokerplaning.Repositories.User.UserRepository;
-import tn.esprit.pokerplaning.Services.Task.TaskServiceImpl;
 
 
 import java.time.LocalDate;
@@ -34,18 +30,18 @@ public class PokerPlanningServices {
     @Autowired
     private UserRepository userRepo;
 
-    public List<Room> ShowAllRooms()
+    public List<Room> showAllRooms()
     {
         List<Room> rooms = roomRepo.findAll();
         return rooms;
     }
 
-    public Room AddRoom(Room room)
+    public Room addRoom(Room room)
     {
         return roomRepo.save(room);
     }
 
-    public void DeleteRoom(Long id)
+    public void deleteRoom(Long id)
     {
         Room room = roomRepo.findById(id).get();
         List<Task> tasks = room.getTasksRoom();
@@ -59,13 +55,13 @@ public class PokerPlanningServices {
         this.roomRepo.delete(room);
     }
 
-    public ResponseEntity<Room> GetRoomById(@PathVariable Long id)
+    public ResponseEntity<Room> getRoomById(@PathVariable Long id)
     {
         Room room = roomRepo.findById(id).get();
         return ResponseEntity.ok(room);
     }
 
-    public ResponseEntity<Room> UpdateRoom(Long id, Room roomDetails)
+    public ResponseEntity<Room> updateRoom(Long id, Room roomDetails)
     {
         Room room = roomRepo.findById(id).get();
 
@@ -80,7 +76,7 @@ public class PokerPlanningServices {
         return ResponseEntity.ok(updatedRoom);
     }
 
-    public void AffectRoomToTask(Task[] tasks)
+    public void affectRoomToTask(Task[] tasks)
     {
         for (Task task : tasks) {
             // Ensure that the room associated with the task is saved and exists in the database
@@ -96,12 +92,12 @@ public class PokerPlanningServices {
         }
     }
 
-    public List<Task> ShowAvailableTasks(){
+    public List<Task> showAvailableTasks(){
         List<Task> tasks = this.taskRepo.findAllByRoomTaskIsNull();
         return tasks;
     }
 
-    public List<Task> ShowVotedTasks(){
+    public List<Task> showVotedTasks(){
         List<Task> tasks = this.taskRepo.findAllByComplexityNotZero();
         List<Task> taskList = new ArrayList<>();
         for (int i=0; i<tasks.size(); i++)
@@ -113,7 +109,7 @@ public class PokerPlanningServices {
     }
 
     @Transactional
-    public void AffectTaskToDev(Task task) {
+    public void affectTaskToDev(Task task) {
         int MAX_SKILL_RATE = 50;
         int complexity = task.getComplexity();
         User user = null;
@@ -135,14 +131,14 @@ public class PokerPlanningServices {
         taskRepo.save(task);
     }
 
-    public void DoingTaskDev(Task task, Long idTask)
+    public void doingTaskDev(Task task, Long idTask)
     {
         Task t = this.taskRepo.findById(idTask).get();
         t.setStatus(Status.INPROGRESS);
         this.taskRepo.save(t);
     }
 
-    public void DoneTaskDev(Task task, Long idTask)
+    public void doneTaskDev(Task task, Long idTask)
     {
         Task t = this.taskRepo.findById(idTask).get();
         t.setStatus(Status.DONE);
@@ -163,7 +159,7 @@ public class PokerPlanningServices {
         }
     }
 
-    public List<Task> ShowDevTasks(Long userId)
+    public List<Task> showDevTasks(Long userId)
     {
         return this.taskRepo.findAllByUserId(userId);
     }

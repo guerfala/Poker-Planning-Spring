@@ -10,7 +10,6 @@ import tn.esprit.pokerplaning.Services.Room.PokerPlanningServices;
 
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/room")
@@ -21,76 +20,64 @@ public class RoomController {
     @Autowired
     private PokerPlanningServices pokerPlanningServices;
 
-    // http://localhost:8082/pokerplanning/ShowAllRooms
     @GetMapping("/ShowAllRooms")
-    public List<Room> ShowAllRooms(){
-        return pokerPlanningServices.ShowAllRooms();
+    public List<Room> showAllRooms(){
+        return pokerPlanningServices.showAllRooms();
     }
 
-    // http://localhost:8082/pokerplanning/AddRoom
     @PostMapping("/AddRoom")
-    public Room AddRoom(@RequestBody Room room){
-        return pokerPlanningServices.AddRoom(room);
+    public Room addRoom(@RequestBody Room room){
+        return pokerPlanningServices.addRoom(room);
     }
 
-    // http://localhost:8082/pokerplanning/GetRoomById/{RoomId}
     @GetMapping("/GetRoomById/{RoomId}")
-    public ResponseEntity<Room> GetRoomById(@PathVariable Long RoomId){
-        return pokerPlanningServices.GetRoomById(RoomId);
+    public ResponseEntity<Room> getRoomById(@PathVariable Long RoomId){
+        return pokerPlanningServices.getRoomById(RoomId);
     }
 
-    // http://localhost:8082/pokerplanning/UpdateRoom/{RoomId}
     @PutMapping("/UpdateRoom/{RoomId}")
-    public ResponseEntity<Room> UpdateRoom(@PathVariable Long RoomId, @RequestBody Room room){
-        return pokerPlanningServices.UpdateRoom(RoomId, room);
+    public ResponseEntity<Room> updateRoom(@PathVariable Long RoomId, @RequestBody Room room){
+        return pokerPlanningServices.updateRoom(RoomId, room);
     }
 
-    // http://localhost:8082/pokerplanning/DeleteRoom/{RoomId}
     @DeleteMapping("/DeleteRoom/{RoomId}")
-    public void DeleteRoom(@PathVariable Long RoomId){
-        this.pokerPlanningServices.DeleteRoom(RoomId);
+    public void deleteRoom(@PathVariable Long RoomId){
+        this.pokerPlanningServices.deleteRoom(RoomId);
     }
 
-    // http://localhost:8082/pokerplanning/AddRoom
     @PutMapping("/AffectRoomToTask")
-    public void AffectRoomToTask(@RequestBody Task[] tasks){
-        this.pokerPlanningServices.AffectRoomToTask(tasks);
+    public void affectRoomToTask(@RequestBody Task[] tasks){
+        this.pokerPlanningServices.affectRoomToTask(tasks);
     }
 
-    // http://localhost:8082/pokerplanning/ShowAvailableTasks
     @GetMapping("/ShowAvailableTasks")
-    public List<Task> ShowAvailableTasks(){
-        return pokerPlanningServices.ShowAvailableTasks();
+    public List<Task> showAvailableTasks(){
+        return pokerPlanningServices.showAvailableTasks();
     }
 
-    // http://localhost:8082/pokerplanning/ShowVotedTasks
     @GetMapping("/ShowVotedTasks")
-    public List<Task> ShowVotedTasks(){
-        return pokerPlanningServices.ShowVotedTasks();
+    public List<Task> showVotedTasks(){
+        return pokerPlanningServices.showVotedTasks();
     }
 
-    // http://localhost:8082/pokerplanning/AffectTaskToDev
     @PutMapping("/AffectTaskToDev")
-    public void AffectTaskToDev(@RequestBody Task task){
-        pokerPlanningServices.AffectTaskToDev(task);
+    public void affectTaskToDev(@RequestBody Task task){
+        pokerPlanningServices.affectTaskToDev(task);
     }
 
-    // http://localhost:8082/pokerplanning/DoingTaskDev
     @PutMapping("/DoingTaskDev/{id}")
-    public void DoingTaskDev(@RequestBody Task task, @PathVariable Long id){
-        pokerPlanningServices.DoingTaskDev(task, id);
+    public void doingTaskDev(@RequestBody Task task, @PathVariable Long id){
+        pokerPlanningServices.doingTaskDev(task, id);
     }
 
-    // http://localhost:8082/pokerplanning/DoneTaskDev
     @PutMapping("/DoneTaskDev/{id}")
-    public void DoneTaskDev(@RequestBody Task task, @PathVariable Long id){
-        pokerPlanningServices.DoneTaskDev(task, id);
+    public void doneTaskDev(@RequestBody Task task, @PathVariable Long id){
+        pokerPlanningServices.doneTaskDev(task, id);
     }
 
-    // http://localhost:8082/pokerplanning/ShowDevTasks/{userId}
     @GetMapping("/ShowDevTasks/{userId}")
-    public List<Task> ShowDevTasks(@PathVariable Long userId){
-        return pokerPlanningServices.ShowDevTasks(userId);
+    public List<Task> showDevTasks(@PathVariable Long userId){
+        return pokerPlanningServices.showDevTasks(userId);
     }
 
 }
