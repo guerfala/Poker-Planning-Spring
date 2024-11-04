@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 import tn.esprit.pokerplaning.Entities.Room.Room;
 import tn.esprit.pokerplaning.Entities.User.User;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class Task implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

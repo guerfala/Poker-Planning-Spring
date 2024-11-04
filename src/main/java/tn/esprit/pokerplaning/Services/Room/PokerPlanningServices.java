@@ -21,14 +21,15 @@ import java.util.List;
 @Service
 public class PokerPlanningServices {
 
-    @Autowired
-    private RoomRepo roomRepo;
+    private final RoomRepo roomRepo;
+    private final TaskRepository taskRepo;
+    private final UserRepository userRepo;
 
-    @Autowired
-    private TaskRepository taskRepo;
-
-    @Autowired
-    private UserRepository userRepo;
+    public PokerPlanningServices(RoomRepo roomRepo, TaskRepository taskRepo, UserRepository userRepo) {
+        this.roomRepo = roomRepo;
+        this.taskRepo = taskRepo;
+        this.userRepo = userRepo;
+    }
 
     public List<Room> showAllRooms()
     {
@@ -57,7 +58,11 @@ public class PokerPlanningServices {
 
     public ResponseEntity<Room> getRoomById(@PathVariable Long id)
     {
-        Room room = roomRepo.findById(id).get();
+        Room room = new Room();
+
+        if (roomRepo.findById(id).isPresent())
+            room = roomRepo.findById(id).get();
+
         return ResponseEntity.ok(room);
     }
 
@@ -93,8 +98,7 @@ public class PokerPlanningServices {
     }
 
     public List<Task> showAvailableTasks(){
-        List<Task> tasks = this.taskRepo.findAllByRoomTaskIsNull();
-        return tasks;
+        return this.taskRepo.findAllByRoomTaskIsNull();
     }
 
     public List<Task> showVotedTasks(){
@@ -110,12 +114,12 @@ public class PokerPlanningServices {
 
     @Transactional
     public void affectTaskToDev(Task task) {
-        int MAX_SKILL_RATE = 50;
+        int maxSkillRate = 50;
         int complexity = task.getComplexity();
         User user = null;
         int higherSkillRate = complexity;
 
-        while (user == null && higherSkillRate <= MAX_SKILL_RATE) { // Assuming MAX_SKILL_RATE is the maximum possible skill rate
+        while (user == null && higherSkillRate <= maxSkillRate) { // Assuming MAX_SKILL_RATE is the maximum possible skill rate
             user = userRepo.findFirstBySkillRateOrderBySkillRateAsc(higherSkillRate);
             higherSkillRate++;
         }
@@ -131,7 +135,7 @@ public class PokerPlanningServices {
         taskRepo.save(task);
     }
 
-    public void doingTaskDev(Task task, Long idTask)
+    public void doingTaskDev(Long idTask)
     {
         Task t = this.taskRepo.findById(idTask).get();
         t.setStatus(Status.INPROGRESS);

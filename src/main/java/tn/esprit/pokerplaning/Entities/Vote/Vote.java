@@ -8,6 +8,7 @@ import tn.esprit.pokerplaning.Entities.Room.Room;
 import tn.esprit.pokerplaning.Entities.Task.Task;
 import tn.esprit.pokerplaning.Entities.User.User;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vote {
+public class Vote implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

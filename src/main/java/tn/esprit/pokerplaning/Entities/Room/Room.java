@@ -38,7 +38,7 @@ public class Room {
     private List<User> participants;
 
     @OneToMany(mappedBy = "roomVote")
-    private List<Vote> votes;
+    private transient List<Vote> votes;
 
     @JsonIgnore
     @OneToMany(mappedBy = "roomTask", cascade = CascadeType.REMOVE)

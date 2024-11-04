@@ -30,19 +30,19 @@ public class RoomController {
         return pokerPlanningServices.addRoom(room);
     }
 
-    @GetMapping("/GetRoomById/{RoomId}")
-    public ResponseEntity<Room> getRoomById(@PathVariable Long RoomId){
-        return pokerPlanningServices.getRoomById(RoomId);
+    @GetMapping("/GetRoomById/{roomId}")
+    public ResponseEntity<Room> getRoomById(@PathVariable Long roomId){
+        return pokerPlanningServices.getRoomById(roomId);
     }
 
-    @PutMapping("/UpdateRoom/{RoomId}")
-    public ResponseEntity<Room> updateRoom(@PathVariable Long RoomId, @RequestBody Room room){
-        return pokerPlanningServices.updateRoom(RoomId, room);
+    @PutMapping("/UpdateRoom/{roomId}")
+    public ResponseEntity<Room> updateRoom(@PathVariable Long roomId, @RequestBody Room room){
+        return pokerPlanningServices.updateRoom(roomId, room);
     }
 
-    @DeleteMapping("/DeleteRoom/{RoomId}")
-    public void deleteRoom(@PathVariable Long RoomId){
-        this.pokerPlanningServices.deleteRoom(RoomId);
+    @DeleteMapping("/DeleteRoom/{roomId}")
+    public void deleteRoom(@PathVariable Long roomId){
+        this.pokerPlanningServices.deleteRoom(roomId);
     }
 
     @PutMapping("/AffectRoomToTask")
@@ -66,8 +66,8 @@ public class RoomController {
     }
 
     @PutMapping("/DoingTaskDev/{id}")
-    public void doingTaskDev(@RequestBody Task task, @PathVariable Long id){
-        pokerPlanningServices.doingTaskDev(task, id);
+    public void doingTaskDev(@PathVariable Long id){
+        pokerPlanningServices.doingTaskDev(id);
     }
 
     @PutMapping("/DoneTaskDev/{id}")
