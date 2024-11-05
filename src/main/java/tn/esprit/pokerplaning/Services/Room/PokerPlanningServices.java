@@ -144,25 +144,25 @@ public class PokerPlanningServices {
         }
     }
 
-    public void doneTaskDev(Task task, Long idTask)
-    {
-        Task t = this.taskRepo.findById(idTask).get();
+    public void doneTaskDev(Task task, Long idTask) {
+        Task t = this.taskRepo.findById(idTask)
+                .orElseThrow(() -> new IllegalArgumentException("Task with ID " + idTask + " not found"));
+
         t.setStatus(Status.DONE);
         this.taskRepo.save(t);
 
         User user = t.getUser();
-
         LocalDate today = LocalDate.now();
+
         if (task.getEndDate().isAfter(today)) {
             user.setSkillRate(user.getSkillRate() + 1);
-            this.userRepo.save(user);
         } else {
-            if (user.getSkillRate() > 0)
-            {
+            if (user.getSkillRate() > 0) {
                 user.setSkillRate(user.getSkillRate() - 1);
-                this.userRepo.save(user);
             }
         }
+
+        this.userRepo.save(user);
     }
 
     public List<Task> showDevTasks(Long userId)
