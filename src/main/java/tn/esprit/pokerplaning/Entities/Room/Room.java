@@ -1,6 +1,7 @@
 package tn.esprit.pokerplaning.Entities.Room;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,21 +25,18 @@ public class Room implements Serializable {
     private Long roomId;
 
     private String roomName;
-
     private Date startDate;
-
     private Date endDate;
-
     private int finalComplexity;
-
     private String description;
-
     private int status;
 
     @ManyToMany(mappedBy = "rooms")
+    @JsonManagedReference
     private List<User> participants;
 
     @OneToMany(mappedBy = "roomVote")
+    @JsonManagedReference
     private List<Vote> votes;
 
     @JsonIgnore

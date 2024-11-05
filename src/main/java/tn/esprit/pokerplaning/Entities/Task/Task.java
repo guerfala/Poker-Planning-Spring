@@ -1,6 +1,6 @@
 package tn.esprit.pokerplaning.Entities.Task;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,35 +22,23 @@ public class Task implements Serializable {
     private Long taskId;
 
     private String taskName;
-
     private String description;
-
     private int complexity;
-
     private LocalDate startDate;
-
     private LocalDate endDate;
-
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
-
     @ManyToOne
+    @JsonBackReference
     private Room roomTask;
 
     @ManyToOne
     private Sprint sprintTask;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "user_id")
     private User user;
-
-
-
-
-
-
-
 }

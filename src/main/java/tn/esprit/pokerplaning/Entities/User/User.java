@@ -1,5 +1,6 @@
 package tn.esprit.pokerplaning.Entities.User;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,29 +13,25 @@ import tn.esprit.pokerplaning.Entities.ProjectTeam.Affectation;
 import tn.esprit.pokerplaning.Entities.Room.Room;
 import tn.esprit.pokerplaning.Entities.Task.Task;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-
 @Entity
 @Data
-@Table(name =" user")
+@Table(name = "user")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+public class User implements UserDetails, Serializable {
 
-public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-
-
     private String firstName;
     private String lastName;
-
     private String email;
-
     private String password;
     private String image;
 
@@ -47,14 +44,15 @@ public class User implements UserDetails {
     private int skillRate;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private List<Task> tasks;
 
     @ManyToMany
+    @JsonBackReference
     private List<Room> rooms;
 
     @OneToMany(mappedBy = "userAffected")
     private List<Affectation> affectations;
-
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority((role.name())));
@@ -77,12 +75,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true ;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return true ;
+        return true;
     }
 }
-
