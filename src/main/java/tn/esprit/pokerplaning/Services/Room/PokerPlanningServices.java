@@ -33,8 +33,7 @@ public class PokerPlanningServices {
 
     public List<Room> showAllRooms()
     {
-        List<Room> rooms = roomRepo.findAll();
-        return rooms;
+        return roomRepo.findAll();
     }
 
     public Room addRoom(Room room)
